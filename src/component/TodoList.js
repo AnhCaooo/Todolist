@@ -2,6 +2,7 @@ import React, { useState} from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TodoTable from './TodoTable';
 
 function TodoList(){
     const [todo, setTodo] = useState({description: '', date: ''})
@@ -19,6 +20,7 @@ function TodoList(){
     const deleteTodo = ( row ) => {
         setTodos(todos.filter((todo, index) => index !== row))
     }
+
     return (
         <div>
             <AppBar style={{background: '#2E3B55'}} position="static">
@@ -31,22 +33,7 @@ function TodoList(){
             <input type="text" placeholder='Description' name="description"value={todo.description} onChange={inputChanged} />
             <input type="date" name='date' value={todo.date} onChange={inputChanged}/>
             <button onClick={addTodo}>Add</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {todos.map((todo, index) => 
-                        <tr key={index}>
-                            <td>{todo.description}</td>
-                            <td>{todo.date}</td>
-                            <td><button onClick={() => deleteTodo(index)}>Delete</button></td>
-                        </tr>)}
-                </tbody>
-            </table>
+            <TodoTable todos={todos} deleteTodo={deleteTodo}/>
         </div>
     );
 }
