@@ -1,4 +1,7 @@
 import React, { useState} from 'react'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 function TodoList(){
     const [todo, setTodo] = useState({description: '', date: ''})
@@ -14,6 +17,13 @@ function TodoList(){
     }
     return (
         <div>
+            <AppBar style={{background: '#2E3B55'}} position="static">
+                <Toolbar>
+                <Typography variant="h6" >
+                    Todolist
+                </Typography>
+                </Toolbar>
+            </AppBar>
             <input type="text" placeholder='Description' name="description"value={todo.description} onChange={inputChanged} />
             <input type="date" name='date' value={todo.date} onChange={inputChanged}/>
             <button onClick={addTodo}>Add</button>
