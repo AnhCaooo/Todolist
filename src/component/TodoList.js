@@ -12,11 +12,11 @@ function TodoList(){
     const [todos, setTodos] = useState([]);
 
     const gridRef = useRef();
- 
+
     const columns = [
-        {field: 'description', sortable: true, filter: true }, 
-        {field: 'date', sortable: true, filter: true },
-        {field: 'priority', sortable: true, filter: true, 
+        {field: 'description', sortable: true, filter: true, floatingFilter: true }, 
+        {field: 'date', sortable: true, filter: true, floatingFilter: true},
+        {field: 'priority', sortable: true, filter: true, floatingFilter: true, 
         cellStyle: params => params.value === "High" ? {color: 'red'} : {color: 'black'}}
     ]; 
 
@@ -72,11 +72,12 @@ const deleteTodo = () => {
             <div className='ag-theme-material' 
                 style={{height: 400, width: 700, margin: 'auto'}}
             >   <AgGridReact
-                    ref={gridRef}
-                    onGridReady={ params => gridRef.current = params.api}
-                    rowSelection='single' 
                     rowData={todos}
-                    columnDefs={columns} 
+                    columnDefs={columns}
+                    ref={gridRef}
+                    rowSelection='single' 
+                    animateRows={true}
+                    onGridReady={ params => gridRef.current = params.api}
                 />
             </div>  
             
