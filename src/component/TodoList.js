@@ -1,11 +1,16 @@
 import React, { useRef, useState} from 'react'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { AgGridReact } from 'ag-grid-react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Tooltip  from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+
+
 
 function TodoList(){
     const [todo, setTodo] = useState({description: '', date: '', priority: ''}); 
@@ -41,34 +46,55 @@ const deleteTodo = () => {
 
     return (
         <div>
-            <AppBar style={{background: '#2E3B55'}} position="static">
-                <Toolbar>
-                <Typography variant="h6" >
-                    Todolist
-                </Typography>
-                </Toolbar>
-            </AppBar>
-            <input type="text" 
-                placeholder='Description' 
-                name="description"
-                value={todo.description} 
-                onChange={inputChanged} 
-            />
-            <input 
-                type="date" 
-                name='date' 
-                value={todo.date} 
-                onChange={inputChanged}
-            />
-            <input 
-                type="priority" 
-                placeholder='Priority' 
-                name='priority' 
-                value={todo.priority} 
-                onChange={inputChanged}
-            />
-            <button onClick={addTodo}>Add</button>
-            <button onClick={deleteTodo}>Delete</button>
+            <Stack 
+                direction="row" 
+                spacing={2} 
+                alignItems="center" 
+                justifyContent="center"
+            >    
+                <TextField type="text" 
+                    label='Description' 
+                    name="description"
+                    variant="standard"
+                    value={todo.description} 
+                    onChange={inputChanged} 
+                />
+                <TextField 
+                    label='Date'
+                    name='date' 
+                    variant='standard'
+                    value={todo.date} 
+                    onChange={inputChanged}
+                />
+                <TextField 
+                    type="priority" 
+                    label='Priority' 
+                    variant='standard'
+                    name='priority' 
+                    value={todo.priority} 
+                    onChange={inputChanged}
+                />
+                <Tooltip title="Add stuff to do">
+                   <Button 
+                        variant="contained" 
+                        endIcon={<AddIcon/>}
+                        onClick={addTodo}>
+                            Add
+                    </Button> 
+                </Tooltip>
+                
+                <Tooltip title="Select a row to delete">
+                    <Button 
+                        variant="contained" 
+                        color='error'
+                        endIcon={<DeleteIcon/>}
+                        onClick={deleteTodo}>
+                            Delete
+                    </Button> 
+                </Tooltip>
+                 
+            </Stack>
+            
             <div className='ag-theme-material' 
                 style={{height: 400, width: 700, margin: 'auto'}}
             >   <AgGridReact
