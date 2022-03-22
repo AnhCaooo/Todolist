@@ -1,10 +1,8 @@
 import './App.css';
-import TodoList from './component/TodoList';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import TabApp from './component/TabApp';
 
 function App() {
   return (
@@ -16,9 +14,7 @@ function App() {
             </Typography>
           </Toolbar>
       </AppBar>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <TodoList/>
-      </MuiPickersUtilsProvider>
+      <TabApp/>
     </div>
   );
 }

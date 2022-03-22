@@ -10,6 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker } from '@material-ui/pickers';
 
 function TodoList(){
@@ -52,47 +54,50 @@ function TodoList(){
                 alignItems="center" 
                 justifyContent="center"
             >    
-                <TextField type="text" 
-                    label='Description' 
-                    name="description"
-                    variant="standard"
-                    value={todo.description} 
-                    onChange={inputChanged} 
-                />
-                <DatePicker 
-                    label="Date"
-                    placeholder="Date"
-                    value={selectedDate} 
-                    onChange={date => handleDateChange(date)}
-                    clearable 
-                    format="dd/MM/yyyy"
-                />
-                <TextField 
-                    type="priority" 
-                    label='Priority' 
-                    variant='standard'
-                    name='priority' 
-                    value={todo.priority} 
-                    onChange={inputChanged}
-                />
-                <Tooltip title="Add stuff to do">
-                   <Button 
-                        variant="contained" 
-                        endIcon={<AddIcon/>}
-                        onClick={addTodo}>
-                            Add
-                    </Button> 
-                </Tooltip>
-                
-                <Tooltip title="Select a row to delete">
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <TextField type="text" 
+                        label='Description' 
+                        name="description"
+                        variant="standard"
+                        value={todo.description} 
+                        onChange={inputChanged} 
+                    />
+                    <DatePicker 
+                        label="Date"
+                        placeholder="Date"
+                        value={selectedDate} 
+                        onChange={date => handleDateChange(date)}
+                        clearable 
+                        format="dd/MM/yyyy"
+                    />
+                    <TextField 
+                        type="priority" 
+                        label='Priority' 
+                        variant='standard'
+                        name='priority' 
+                        value={todo.priority} 
+                        onChange={inputChanged}
+                    />
+                    <Tooltip title="Add stuff to do">
                     <Button 
-                        variant="contained" 
-                        color='error'
-                        endIcon={<DeleteIcon/>}
-                        onClick={deleteTodo}>
-                            Delete
-                    </Button> 
-                </Tooltip>
+                            variant="contained" 
+                            endIcon={<AddIcon/>}
+                            onClick={addTodo}>
+                                Add
+                        </Button> 
+                    </Tooltip>
+                    
+                    <Tooltip title="Select a row to delete">
+                        <Button 
+                            variant="contained" 
+                            color='error'
+                            endIcon={<DeleteIcon/>}
+                            onClick={deleteTodo}>
+                                Delete
+                        </Button> 
+                    </Tooltip>
+                </MuiPickersUtilsProvider>
+                
                  
             </Stack>
             
