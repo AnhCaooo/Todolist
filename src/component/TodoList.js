@@ -10,9 +10,10 @@ import AddIcon from '@mui/icons-material/Add';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
-
+import { DatePicker } from '@material-ui/pickers';
 
 function TodoList(){
+    const [selectedDate, handleDateChange] = useState(new Date());
     const [todo, setTodo] = useState({description: '', date: '', priority: ''}); 
     const [todos, setTodos] = useState([]);
 
@@ -26,7 +27,7 @@ function TodoList(){
     ]; 
 
     const inputChanged = (event) => {
-        setTodo({...todo, [event.target.name]: event.target.value})
+        setTodo({...todo, date: selectedDate, [event.target.name]: event.target.value})
     }
 
     const addTodo = () => {
@@ -34,8 +35,7 @@ function TodoList(){
         setTodo({description: '', date: '', priority: ''});
     }
 
-const deleteTodo = () => {
-
+    const deleteTodo = () => {
     if (gridRef.current.getSelectedNodes().length > 0) {    
        setTodos(todos.filter((todo, index) =>      
             index !== gridRef.current.getSelectedNodes()[0].childIndex)) 
@@ -59,12 +59,13 @@ const deleteTodo = () => {
                     value={todo.description} 
                     onChange={inputChanged} 
                 />
-                <TextField 
-                    label='Date'
-                    name='date' 
-                    variant='standard'
-                    value={todo.date} 
-                    onChange={inputChanged}
+                <DatePicker 
+                    label="Date"
+                    placeholder="Date"
+                    value={selectedDate} 
+                    onChange={date => handleDateChange(date)}
+                    clearable 
+                    format="dd/MM/yyyy"
                 />
                 <TextField 
                     type="priority" 
